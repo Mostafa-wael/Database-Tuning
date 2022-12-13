@@ -16,3 +16,4 @@ services:
       - ./sql/data/DDL/:/docker-entrypoint-initdb.d/
       - ./sql/data/queries/:/mnt/queries
       - ./sql/data/scripts/:/mnt/scripts
+      - ./sql/data/dummyData/:/mnt/dummyData

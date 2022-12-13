@@ -1,6 +1,6 @@
 -- Create table for users
 CREATE TABLE users (
-  id int(11) NOT NULL AUTO_INCREMENT,
+  id SERIAL NOT NULL,
   first_name varchar(255) NOT NULL,
   last_name varchar(255) NOT NULL,
   email varchar(255) NOT NULL,
@@ -10,7 +10,7 @@ CREATE TABLE users (
 
 -- Create table for posts
 CREATE TABLE posts (
-  id int(11) NOT NULL AUTO_INCREMENT,
+  id SERIAL NOT NULL,
   user_id int(11) NOT NULL,
   title varchar(255) NOT NULL,
   body text NOT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE posts (
 
 -- Create table for comments 
 CREATE TABLE comments (
-  id int(11) NOT NULL AUTO_INCREMENT,
+  id SERIAL NOT NULL,
   user_id int(11) NOT NULL,
   post_id int(11) NOT NULL,
   body text NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE comments (
 
 -- Create table for replies
 CREATE TABLE replies (
-  id int(11) NOT NULL AUTO_INCREMENT,
+  id SERIAL NOT NULL,
   user_id int(11) NOT NULL,
   comment_id int(11) NOT NULL,
   body text NOT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE replies (
 
 -- Create table for likes
 CREATE TABLE likes (
-  id int(11) NOT NULL AUTO_INCREMENT,
+  id SERIAL NOT NULL,
   user_id int(11) NOT NULL,
   post_id int(11) NOT NULL,
   PRIMARY KEY (id),
@@ -67,7 +67,7 @@ CREATE TABLE likes (
 
 -- Create table for follows
 CREATE TABLE follows (
-  id int(11) NOT NULL AUTO_INCREMENT,
+  id SERIAL NOT NULL,
   user_id int(11) NOT NULL,
   follower_id int(11) NOT NULL,
   PRIMARY KEY (id),
@@ -81,7 +81,7 @@ CREATE TABLE follows (
 
 -- Create table for messages
 CREATE TABLE messages (
-  id int(11) NOT NULL AUTO_INCREMENT,
+  id SERIAL NOT NULL,
   sender_id int(11) NOT NULL,
   receiver_id int(11) NOT NULL,
   body text NOT NULL,

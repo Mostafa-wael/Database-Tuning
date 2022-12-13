@@ -16,3 +16,4 @@ docker run -it \
 # docker exec -u postgres pg_test psql postgres postgres -f docker-entrypoint-initdb.d/dump.sql
 # docker exec -it postgresql psql -U postgres -W postgres
 # docker exec -it postgresql /bin/bash
+

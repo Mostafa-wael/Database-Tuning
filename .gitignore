@@ -1,0 +1,3 @@
+*WiredTiger*
+*.wt*
+*lock*

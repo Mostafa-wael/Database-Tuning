@@ -3,7 +3,7 @@
 2. You will see a message whether the creation was `Okay` or `Not Okay`.
 3. Exec into the container.
 4. Populate the data by running with the required size ``` ./mnt/scripts/populate_data.sh  1k```.
-5. Run the query using ```  ./mnt/scripts/run_queries.sh  ```.
+5. Run the query using ```  ./mnt/scripts/run_queries.sh query1```.
 6. Don't forget to stop the container after you are done.
 7. Run ``` docker-compose down --volumes``` to delete the volumes.
 
@@ -17,3 +17,14 @@
 
 
 >> You can find the schema of the database in the `DDL` folder.
+
+### Helpful mongo commands
+1. Note that mongo command should be installed on the computer. On Linux this should be install `mongodb-org-shell` [package](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/).
+2. Connect to MongoDB server ```mongo admin -u root -p pass12345``` It will connect to localhost port 27017.
+3. Show databases: `show dbs`
+4. Create new non-existent database: `use mydatabase`
+5. Show collections: `show collections`
+6. Show contents/documents of a collection: `db.your_collection_name.find()`
+7. Save a data to a collection: `db.your_collection_name.save({"name":"Sony AK"})`
+8. Show database version: `db.version()`
+9. Show database status: `db.stats()`

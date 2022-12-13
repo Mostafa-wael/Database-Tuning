@@ -1,4 +1,4 @@
--- Create table for users
+
 CREATE TABLE users (
   id SERIAL NOT NULL,
   first_name varchar(255) NOT NULL,
@@ -6,90 +6,97 @@ CREATE TABLE users (
   email varchar(255) NOT NULL,
   password varchar(255) NOT NULL,
   PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
--- Create table for posts
+
+
 CREATE TABLE posts (
   id SERIAL NOT NULL,
-  user_id int(11) NOT NULL,
+  user_id int NOT NULL,
   title varchar(255) NOT NULL,
   body text NOT NULL,
-  PRIMARY KEY (id),
-  KEY user_id (user_id),
+  PRIMARY KEY (id)
+,
   CONSTRAINT posts_ibfk_1 FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
+
+-- CREATE INDEX user_id ON posts (user_id);
 
 
 
--- Create table for comments 
 CREATE TABLE comments (
   id SERIAL NOT NULL,
-  user_id int(11) NOT NULL,
-  post_id int(11) NOT NULL,
+  user_id int NOT NULL,
+  post_id int NOT NULL,
   body text NOT NULL,
-  PRIMARY KEY (id),
-  KEY user_id (user_id),
-  KEY post_id (post_id),
+  PRIMARY KEY (id)
+,
   CONSTRAINT comments_ibfk_1 FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT comments_ibfk_2 FOREIGN KEY (post_id) REFERENCES posts (id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
+
+-- CREATE INDEX user_id ON comments (user_id);
+-- CREATE INDEX post_id ON comments (post_id);
 
 
 
--- Create table for replies
 CREATE TABLE replies (
   id SERIAL NOT NULL,
-  user_id int(11) NOT NULL,
-  comment_id int(11) NOT NULL,
+  user_id int NOT NULL,
+  comment_id int NOT NULL,
   body text NOT NULL,
-  PRIMARY KEY (id),
-  KEY user_id (user_id),
-  KEY comment_id (comment_id),
+  PRIMARY KEY (id)
+,
   CONSTRAINT replies_ibfk_1 FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT replies_ibfk_2 FOREIGN KEY (comment_id) REFERENCES comments (id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
+
+-- CREATE INDEX user_id ON replies (user_id);
+-- CREATE INDEX comment_id ON replies (comment_id);
 
 
 
--- Create table for likes
 CREATE TABLE likes (
   id SERIAL NOT NULL,
-  user_id int(11) NOT NULL,
-  post_id int(11) NOT NULL,
-  PRIMARY KEY (id),
-  KEY user_id (user_id),
-  KEY post_id (post_id),
+  user_id int NOT NULL,
+  post_id int NOT NULL,
+  PRIMARY KEY (id)
+,
   CONSTRAINT likes_ibfk_1 FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT likes_ibfk_2 FOREIGN KEY (post_id) REFERENCES posts (id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
+
+-- CREATE INDEX user_id ON likes (user_id);
+-- CREATE INDEX post_id ON likes (post_id);
 
 
 
--- Create table for follows
 CREATE TABLE follows (
   id SERIAL NOT NULL,
-  user_id int(11) NOT NULL,
-  follower_id int(11) NOT NULL,
-  PRIMARY KEY (id),
-  KEY user_id (user_id),
-  KEY follower_id (follower_id),
+  user_id int NOT NULL,
+  follower_id int NOT NULL,
+  PRIMARY KEY (id)
+,
   CONSTRAINT follows_ibfk_1 FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT follows_ibfk_2 FOREIGN KEY (follower_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
+
+-- CREATE INDEX user_id ON follows (user_id);
+-- CREATE INDEX follower_id ON follows (follower_id);
 
 
-
--- Create table for messages
 CREATE TABLE messages (
   id SERIAL NOT NULL,
-  sender_id int(11) NOT NULL,
-  receiver_id int(11) NOT NULL,
+  sender_id int NOT NULL,
+  receiver_id int NOT NULL,
   body text NOT NULL,
-  PRIMARY KEY (id),
-  KEY sender_id (sender_id),
-  KEY receiver_id (receiver_id),
+  PRIMARY KEY (id)
+,
   CONSTRAINT messages_ibfk_1 FOREIGN KEY (sender_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT messages_ibfk_2 FOREIGN KEY (receiver_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
+
+-- CREATE INDEX sender_id ON messages (sender_id);
+-- CREATE INDEX receiver_id ON messages (receiver_id); 
 
 

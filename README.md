@@ -7,6 +7,21 @@
 6. Don't forget to stop the container after you are done.
 7. Run ``` docker-compose down --volumes``` to delete the volumes.
 
+### For NOSQL 
+
+1. Run ``` docker-compose up mongodb ```
+2. Container will create collections upon startup also it will insert dummy data into them
+3. You can change the number of dummy documents to be inserted from <b>insert_dummy.js</b> change the dummy_size variable
+4. Use <b>connect_db.sh</b> to exec into container
+5. Run the following commands 
+```
+    use admin
+    db.auth("root","pass12345")
+    use Users
+
+```
+
+
 ## How can you contribute?
 1. Create queries in the `queries` folder.
 2. Add the queries to the `run_queries.sh` file.
@@ -17,6 +32,7 @@
 
 
 >> You can find the schema of the database in the `DDL` folder.
+
 
 ### Helpful mongo commands
 1. Note that mongo command should be installed on the computer. On Linux this should be install `mongodb-org-shell` [package](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/).

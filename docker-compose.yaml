@@ -24,12 +24,9 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=pass12345
-  #     PUID: 1000
-  #     PGID: 1000
     volumes:
-      - mongodb-data:/data/db
-    # - ./nosql/DDL/:/docker-entrypoint-initdb.d/
-    # - ./nosql/dump/:/data/db
+    - ./NoSQL/DDL/mongo-init.js:/docker-entrypoint-initdb.d/1-mongo-init.js:ro
+    - ./NoSQL/dummyData/insert_dummy.js:/docker-entrypoint-initdb.d/2-insert_dummy.js
     networks:
       - mongodb_network
     ports:

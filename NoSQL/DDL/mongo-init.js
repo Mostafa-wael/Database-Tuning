@@ -1,4 +1,4 @@
-db = new Mongo().getDB("Users");
+db = new Mongo().getDB("social");
 
 // Create collections
 db.createCollection("users");

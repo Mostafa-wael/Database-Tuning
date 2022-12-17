@@ -11,15 +11,21 @@
 
 1. Run ``` docker-compose up mongodb ```
 2. Container will create collections upon startup also it will insert dummy data into them
-3. You can change the number of dummy documents to be inserted from <b>insert_dummy.js</b> change the dummy_size variable , but you must do docker-compose down --volumes first
-4. Use <b>connect_db.sh</b> to exec into container
-5. Run the following commands 
+3. Use <b>connect_db.sh</b> to exec into container
+4. Run the following commands 
 ```
+    mongosh
     use admin
     db.auth("root","pass12345")
     use Users
 
 ```
+5. The container starts initially with 10k data for each collection , to change this
+    - Open a shell in the container using connect_db.sh
+    - change the number fo dummy data  using ``` export DUMMY_SIZE=1000000 ```
+    - run ``` mongosh ```
+    - Authenticate yourself using step 4 commands
+    - load the script again using ``` load("./insert_dummy.js") ```
 
 
 ## How can you contribute?

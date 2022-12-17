@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker exec -it mongodb mongosh
+docker exec -it mongodb /bin/bash

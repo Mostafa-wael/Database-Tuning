@@ -9,34 +9,45 @@ CREATE TABLE users (
 );
 
 
-
 CREATE TABLE posts (
   id SERIAL NOT NULL,
-  user_id int NOT NULL,
   title varchar(255) NOT NULL,
   body text NOT NULL,
   PRIMARY KEY (id)
-,
-  CONSTRAINT posts_ibfk_1 FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- CREATE INDEX user_id ON posts (user_id);
+-- CREATE INDEX user_id ON posts (user_id)
 
-
-
-CREATE TABLE comments (
+CREATE TABLE user_posts (
   id SERIAL NOT NULL,
   user_id int NOT NULL,
   post_id int NOT NULL,
+  PRIMARY KEY (id),
+
+  CONSTRAINT user_posts_ibfk_1 FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT user_posts_ibfk_2 FOREIGN KEY (post_id) REFERENCES posts (id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE comments (
+  id SERIAL NOT NULL,
   body text NOT NULL,
   PRIMARY KEY (id)
-,
-  CONSTRAINT comments_ibfk_1 FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT comments_ibfk_2 FOREIGN KEY (post_id) REFERENCES posts (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- CREATE INDEX user_id ON comments (user_id);
 -- CREATE INDEX post_id ON comments (post_id);
+
+CREATE TABLE user_comments (
+  id SERIAL NOT NULL,
+  user_id int NOT NULL,
+  post_id int NOT NULL,
+  comment_id int NOT NULL,
+  PRIMARY KEY (id),
+
+  CONSTRAINT user_comments_ibfk_1 FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT user_comments_ibfk_2 FOREIGN KEY (post_id) REFERENCES posts (id) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT user_comments_ibfk_3 FOREIGN KEY (comment_id) REFERENCES comments (id) ON DELETE CASCADE ON UPDATE CASCADE
+);
 
 
 

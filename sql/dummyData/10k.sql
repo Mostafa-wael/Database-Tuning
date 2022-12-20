@@ -5,15 +5,22 @@ SELECT CONCAT('First Name ', FLOOR(1 + RANDOM() * 10000)), CONCAT('Last Name ', 
 FROM generate_series(1, 10000) AS id;
 
 
-INSERT INTO posts(user_id, title, body)
-SELECT FLOOR(1 + RANDOM() * 10000), CONCAT('Title ', FLOOR(1 + RANDOM() * 10000)), CONCAT('Body ', FLOOR(1 + RANDOM() * 10000))
+INSERT INTO posts(title, body)
+SELECT CONCAT('Title ', FLOOR(1 + RANDOM() * 10000)), CONCAT('Body ', FLOOR(1 + RANDOM() * 10000))
+FROM generate_series(1, 10000) AS id;
+
+INSERT INTO user_posts(user_id, post_id)
+SELECT FLOOR(1 + RANDOM() * 10000), FLOOR(1 + RANDOM() * 10000)
 FROM generate_series(1, 10000) AS id;
 
 
-INSERT INTO comments(user_id, post_id, body)
-SELECT FLOOR(1 + RANDOM() * 10000), FLOOR(1 + RANDOM() * 10000), CONCAT('Body ', FLOOR(1 + RANDOM() * 10000))
+INSERT INTO comments(body)
+SELECT CONCAT('Body ', FLOOR(1 + RANDOM() * 10000))
 FROM generate_series(1, 10000) AS id;
 
+INSERT INTO user_comments(user_id, post_id, comment_id)
+SELECT FLOOR(1 + RANDOM() * 10000), FLOOR(1 + RANDOM() * 10000),FLOOR(1 + RANDOM() * 10000)
+FROM generate_series(1, 10000) AS id;
 
 
 INSERT INTO replies(user_id, comment_id, body)

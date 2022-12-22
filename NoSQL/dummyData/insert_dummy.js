@@ -6,8 +6,10 @@ db = db.getSiblingDB('social')
 console.log("Deleting all documents in all collections");
 db.users.remove({});
 db.posts.remove({});
+db.user_posts.remove({});
 db.likes.remove({});
 db.comments.remove({});
+db.user_comments.remove({});
 db.replies.remove({});
 db.likes.remove({});
 db.follows.remove({});
@@ -38,9 +40,20 @@ var bulk = db.posts.initializeUnorderedBulkOp();
 for (var i = 0; i < dummy_size; i++) {
     bulk.insert({
         id: i,
-        user_id: i,
         title: "Title" + i,
         body: "Content" + i
+    });
+}
+bulk.execute();
+
+console.log("Inserting dummy data into user_posts collection");
+var bulk = db.user_posts.initializeUnorderedBulkOp();
+// insert dummy user_posts into user_posts collection
+for (var i = 0; i < dummy_size; i++) {
+    bulk.insert({
+        id: i,
+        user_id: i,
+        post_id: i
     });
 }
 bulk.execute();
@@ -51,9 +64,20 @@ var bulk = db.comments.initializeUnorderedBulkOp();
 for (var i = 0; i < dummy_size; i++) {
     bulk.insert({
         id: i,
+        body: "Comment" + i
+    });
+}
+bulk.execute();
+
+console.log("Inserting dummy data into user_comments collection");
+var bulk = db.user_comments.initializeUnorderedBulkOp();
+// insert dummy user_comments into user_comments collection
+for (var i = 0; i < dummy_size; i++) {
+    bulk.insert({
+        id: i,
         user_id: i,
         post_id: i,
-        body: "Comment" + i
+        comment_id: i
     });
 }
 bulk.execute();

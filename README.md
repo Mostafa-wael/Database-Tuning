@@ -17,7 +17,7 @@
     mongosh
     use admin
     db.auth("root","pass12345")
-    use Users
+    use social
 
 ```
 5. The container starts initially with 10k data for each collection , to change this

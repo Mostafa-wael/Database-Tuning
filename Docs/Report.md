@@ -1,5 +1,11 @@
 ## Report
 
+## System Specifications
+| Name | Version |
+|------|---------|
+| OS   | Ubuntu 22.04 LTS |
+| CPU  | Intel(R) Core(TM) i7-8750H CPU @ 2.20GHz |
+| RAM  | 16 GB |
 
 ## Postgres Server Statistics Report
 | Table Name    | Row Count | Main Key | Indexes | FK  | Identity Column | Max Row Size(Bytes) |

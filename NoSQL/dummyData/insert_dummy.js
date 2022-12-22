@@ -119,7 +119,7 @@ for (var i = 0; i < dummy_size; i++) {
 }
 bulk.execute();
 
-console.log("Inserting dummy data into messgaes collection");
+console.log("Inserting dummy data into messages collection");
 var bulk = db.messages.initializeUnorderedBulkOp();
 // insert dummy messages into messages collection
 for (var i = 0; i < dummy_size; i++) {

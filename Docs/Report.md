@@ -20,6 +20,8 @@
 | follows       | 10000     | Yes      | No      | Yes | Yes             | 35                  |
 | messages      | 10000     | Yes      | No      | Yes | Yes             | 46                  |
 
+## Postgres Server Schema
+![Postgres Schema](./ERD.png)
 ## MongoDB Server Schema
 ###  users
 ``` json

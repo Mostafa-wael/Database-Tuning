@@ -10,15 +10,15 @@
 ## Postgres Server Statistics Report
 | Table Name    | Row Count | Main Key | Indexes | FK  | Identity Column | Max Row Size(Bytes) |
 |---------------|-----------|----------|---------|-----|-----------------|---------------------|
-| users         | 10000     | Yes      | No      | No  | Yes             | 87                  |
-| posts         | 10000     | Yes      | No      | No  | Yes             | 50                  |
-| user_posts    | 10000     | Yes      | No      | Yes | Yes             | 35                  |
-| comments      | 10000     | Yes      | No      | No  | Yes             | 38                  |
-| user_comments | 10000     | Yes      | No      | Yes | Yes             | 39                  |
-| replies       | 10000     | Yes      | No      | Yes | Yes             | 46                  |
-| likes         | 10000     | Yes      | No      | Yes | Yes             | 35                  |
-| follows       | 10000     | Yes      | No      | Yes | Yes             | 35                  |
-| messages      | 10000     | Yes      | No      | Yes | Yes             | 46                  |
+| users         | 1000000   | Yes      | No      | No  | Yes             | 87                  |
+| posts         | 1000000   | Yes      | No      | No  | Yes             | 50                  |
+| user_posts    | 1000000   | Yes      | No      | Yes | Yes             | 35                  |
+| comments      | 1000000   | Yes      | No      | No  | Yes             | 38                  |
+| user_comments | 1000000   | Yes      | No      | Yes | Yes             | 39                  |
+| replies       | 1000000   | Yes      | No      | Yes | Yes             | 46                  |
+| likes         | 1000000   | Yes      | No      | Yes | Yes             | 35                  |
+| follows       | 1000000   | Yes      | No      | Yes | Yes             | 35                  |
+| messages      | 1000000   | Yes      | No      | Yes | Yes             | 46                  |
 
 ## Postgres Server Schema
 ![Postgres Schema](./ERD.png)

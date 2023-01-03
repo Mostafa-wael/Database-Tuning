@@ -1,3 +1,8 @@
+/*
+cache optimization
+*/
+
+
 -- query 1
 -- select all the users with more than 100 posts and more than 100 comments
 -- select * from users where id in (select user_id from posts group by user_id having count(*) > 100) and id in (select user_id from comments group by user_id having count(*) > 100); 
@@ -34,10 +39,11 @@ FROM user_posts p
 CROSS JOIN user_comments c
 CROSS JOIN likes l
 group by p.id , l.id 
-having count(l.id) > 1;
+having count(l.id) > 1
 
 
 --query 4
+-- We want to write a very complex query
 -- We want to find all the followers of a certian user that have more than 5 comments on all the users posts
 SELECT *
 FROM users u 

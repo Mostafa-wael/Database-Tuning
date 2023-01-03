@@ -1,5 +1,5 @@
 # a docker compose file to start a postgressql image and configure its volumes from the host machine
-version: '3.8'
+version: '2.2'
 services:
   postgres:
     image: postgres:13.2

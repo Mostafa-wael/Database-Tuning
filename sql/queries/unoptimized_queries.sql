@@ -37,7 +37,7 @@ CROSS JOIN replies r
 CROSS JOIN likes l
 group by p.id , u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id
 order by p.id , u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id;
-
+where count(l.id) > 7
 
 --query 3
 SELECT p.id ,count(*)

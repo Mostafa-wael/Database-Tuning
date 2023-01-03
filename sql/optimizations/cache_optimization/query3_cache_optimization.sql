@@ -8,7 +8,7 @@
 -- query 3 after cache optimization
 ALTER SESSION SET USE_CACHED_RESULT=FALSE;
 
-SELECT p.id ,count(*)
+EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT p.id ,count(*)
 FROM user_posts p
 CROSS JOIN user_comments c
 CROSS JOIN likes l
@@ -17,7 +17,7 @@ having count(l.id) > 2;
 
 ALTER SESSION SET USE_CACHED_RESULT=FALSE;
 
-SELECT p.id ,count(*)
+EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT p.id ,count(*)
 FROM user_posts p
 CROSS JOIN user_comments c
 CROSS JOIN likes l
@@ -29,14 +29,14 @@ having count(l.id) > 2;
 
 ALTER SESSION SET USE_CACHED_RESULT=TRUE;
 
-SELECT p.id ,count(*)
+EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT p.id ,count(*)
 FROM user_posts p
 CROSS JOIN user_comments c
 CROSS JOIN likes l
 group by p.id , l.id 
 having count(l.id) > 2;
 
-SELECT p.id ,count(*)
+EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT p.id ,count(*)
 FROM user_posts p
 CROSS JOIN user_comments c
 CROSS JOIN likes l

@@ -8,9 +8,8 @@
 -- query 2 after cache optimization
 ALTER SESSION SET USE_CACHED_RESULT=FALSE;
 
-DO SLEEP(1);
 
-SELECT u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id
+EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id
 FROM users u
 CROSS JOIN user_posts up
 CROSS JOIN posts p
@@ -26,9 +25,8 @@ where p.title LIKE '%title12%' and p.body LIKE '%body22%' and u.age > 20  ;
 
 ALTER SESSION SET USE_CACHED_RESULT=FALSE;
 
-DO SLEEP(1);
 
-SELECT u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id
+EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id
 FROM users u
 CROSS JOIN user_posts up
 CROSS JOIN posts p
@@ -44,7 +42,7 @@ where p.title LIKE '%title12%' and p.body LIKE '%body22%' and u.age > 20  ;
 -- query 2 before cache optimization
 ALTER SESSION SET USE_CACHED_RESULT=TRUE;
 
-SELECT u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id
+EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id
 FROM users u
 CROSS JOIN user_posts up
 CROSS JOIN posts p
@@ -59,7 +57,7 @@ where p.title LIKE '%title12%' and p.body LIKE '%body22%' and u.age > 20  ;
 
 
 
-SELECT u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id
+EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id
 FROM users u
 CROSS JOIN user_posts up
 CROSS JOIN posts p

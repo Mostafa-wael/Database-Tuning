@@ -13,7 +13,7 @@ FROM user_posts p
 CROSS JOIN user_comments c
 CROSS JOIN likes l
 group by p.id , l.id 
-having count(l.id) > 1;
+having count(l.id) > 2;
 
 ALTER SESSION SET USE_CACHED_RESULT=FALSE;
 
@@ -22,7 +22,7 @@ FROM user_posts p
 CROSS JOIN user_comments c
 CROSS JOIN likes l
 group by p.id , l.id 
-having count(l.id) > 1;
+having count(l.id) > 2;
 
 
 -- query 3 before cache optimization
@@ -34,12 +34,12 @@ FROM user_posts p
 CROSS JOIN user_comments c
 CROSS JOIN likes l
 group by p.id , l.id 
-having count(l.id) > 1;
+having count(l.id) > 2;
 
 SELECT p.id ,count(*)
 FROM user_posts p
 CROSS JOIN user_comments c
 CROSS JOIN likes l
 group by p.id , l.id 
-having count(l.id) > 1;
+having count(l.id) > 2;
 

@@ -29,7 +29,7 @@ CROSS JOIN likes l
 group by p.id , u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id
 order by p.id , u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id;
 having count(l.id) > 7
-where u.age > 20 and p.title LIKE '%title12%' and p.body LIKE '%body22%' ;
+where p.title LIKE '%title12%' and p.body LIKE '%body22%' and u.age > 20  ;
 
 
 --query 3
@@ -38,7 +38,7 @@ FROM user_posts p
 CROSS JOIN user_comments c
 CROSS JOIN likes l
 group by p.id , l.id 
-having count(l.id) > 1;
+having count(l.id) > 2;
 
 --query 4
 -- We want to write a very complex query
@@ -51,7 +51,7 @@ CROSS JOIN posts p
 GROUP BY c.user_id
 order by c.id 
 having count(c.id) > 5
-where u.age > 29;
+where  c.body '%body22%' LIKE u.age > 29;
 
 
 

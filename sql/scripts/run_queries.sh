@@ -9,4 +9,4 @@ end=$(date +%s.%N)
 runtime=(${end} - ${start})
 # convert to seconds
 runtime=$(echo "${runtime}" | awk '{print $1/1000}')
-echo "Runtime: ${runtime} seconds"
+echo "Runtime: ${runtime} seconds" > /mnt/queries/$script.time

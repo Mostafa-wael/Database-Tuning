@@ -24,7 +24,7 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=pass12345
-      - DUMMY_SIZE=10000
+      - DUMMY_SIZE=1000000
       - NODE_OPTIONS=--max_old_space_size=4096
     volumes:
     - ./NoSQL/DDL/mongo-init.js:/docker-entrypoint-initdb.d/1-mongo-init.js:ro
@@ -40,30 +40,8 @@ services:
       timeout: 10s
       retries: 3
     restart: unless-stopped
-  mongo-express:
-    image: mongo-express
-    container_name: mongo-express
-    environment:
-      - ME_CONFIG_MONGODB_SERVER=mongodb
-      - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
-      - ME_CONFIG_MONGODB_ADMINUSERNAME=root
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=pass12345
-      - ME_CONFIG_BASICAUTH_USERNAME=admin
-      - ME_CONFIG_BASICAUTH_PASSWORD=admin123
-    volumes:
-      - mongodb-data
-    depends_on:
-      - mongodb
-    networks:
-      - mongodb_network
-    ports:
-      - 8081:8081
-    healthcheck:
-      test:  wget --quiet --tries=3 --spider http://admin:admin123@localhost:8081 || exit 1
-      interval: 30s
-      timeout: 10s
-      retries: 3
-    restart: unless-stopped
+
+
 volumes:
   mongodb-data:
     name: mongodb-data

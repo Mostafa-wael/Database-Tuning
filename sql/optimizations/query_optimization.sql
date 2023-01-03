@@ -29,14 +29,12 @@ id in (
 -- where t.id = 1
 SELECT u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id
 FROM users u
-CROSS JOIN user_posts up
-CROSS JOIN posts p
-CROSS JOIN user_comments uc
-CROSS JOIN comments c
+CROSS JOIN user_posts p
+CROSS JOIN user_comments c
 CROSS JOIN replies r
 CROSS JOIN likes l
 group by p.id , u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id
-order by p.id , u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id;
+order by p.id , u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id
 
 
 --query 3
@@ -45,7 +43,7 @@ FROM user_posts p
 CROSS JOIN user_comments c
 CROSS JOIN likes l
 group by p.id , l.id 
-having count(l.id) > 1;
+having count(l.id) > 1
 
 
 --query 4
@@ -58,7 +56,7 @@ CROSS JOIN comments c
 CROSS JOIN posts p
 GROUP BY c.user_id
 order by c.id 
-having count(c.id) > 5;
+having count(c.id) > 5
 
 
 

@@ -11,7 +11,6 @@ ALTER SESSION SET USE_CACHED_RESULT=FALSE;
 
 DO SLEEP(1);
 
-
 SELECT * 
 FROM users 
 WHERE id in (
@@ -23,8 +22,10 @@ id in (
   SELECT user_id 
   FROM user_comments
   group by user_id
-);
- 
+)
+and age > 28
+;
+
 ALTER SESSION SET USE_CACHED_RESULT=FALSE;
 
 
@@ -42,7 +43,10 @@ id in (
   SELECT user_id 
   FROM user_comments
   group by user_id
-);
+)
+and age > 28
+;
+
 
 -- query 1 before cache optimization
 ALTER SESSION SET USE_CACHED_RESULT=TRUE;
@@ -61,11 +65,13 @@ id in (
   SELECT user_id 
   FROM user_comments
   group by user_id
-);
+)
+and age > 28
+;
+
 
 ALTER SESSION SET USE_CACHED_RESULT=TRUE;
 DO SLEEP(1);
-
 
 SELECT * 
 FROM users 
@@ -78,4 +84,6 @@ id in (
   SELECT user_id 
   FROM user_comments
   group by user_id
-);
+)
+and age > 28
+;

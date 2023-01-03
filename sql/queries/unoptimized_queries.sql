@@ -12,21 +12,14 @@ id in (
   SELECT user_id 
   FROM user_comments
   group by user_id
-);
+)
+and age > 28
+;
+
+
  
 --query 2
--- SELECT *
--- FROM(
--- SELECT u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id
--- FROM users u
--- CROSS JOIN user_posts p
--- CROSS JOIN user_comments c
--- CROSS JOIN replies r
--- CROSS JOIN likes l
--- group by p.id , u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id
--- order by p.id , u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id
--- ) as t
--- where t.id = 1
+
 SELECT u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id
 FROM users u
 CROSS JOIN user_posts up
@@ -37,7 +30,8 @@ CROSS JOIN replies r
 CROSS JOIN likes l
 group by p.id , u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id
 order by p.id , u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id;
-where count(l.id) > 7
+having count(l.id) > 7
+where u.age > 20;
 
 --query 3
 SELECT p.id ,count(*)
@@ -58,7 +52,8 @@ CROSS JOIN comments c
 CROSS JOIN posts p
 GROUP BY c.user_id
 order by c.id 
-having count(c.id) > 5;
+having count(c.id) > 5
+where u.age > 29;
 
 
 

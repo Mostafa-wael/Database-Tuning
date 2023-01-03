@@ -24,7 +24,7 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=pass12345
-      - DUMMY_SIZE=1000000
+      - DUMMY_SIZE=1000
       - NODE_OPTIONS=--max_old_space_size=4096
     volumes:
     - ./NoSQL/DDL/mongo-init.js:/docker-entrypoint-initdb.d/1-mongo-init.js:ro

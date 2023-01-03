@@ -15,4 +15,6 @@ id in (
   SELECT user_id 
   FROM user_comments
   group by user_id
-);
+)
+and age > 28
+;

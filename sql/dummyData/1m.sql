@@ -1,7 +1,7 @@
 SELECT setseed(.123);
 
-INSERT INTO users(first_name, last_name, email, password,age)
-SELECT CONCAT('First Name ', FLOOR(1 + RANDOM() * 1000000)), CONCAT('Last Name ', FLOOR(1 + RANDOM() * 1000000)), CONCAT('email ', FLOOR(1 + RANDOM() * 1000000)), CONCAT('password ', FLOOR(1 + RANDOM() * 1000000)), FLOOR(15 + RANDOM() * 30)
+INSERT INTO users(first_name, last_name, email, password,age, city)
+SELECT CONCAT('First Name ', FLOOR(1 + RANDOM() * 1000000)), CONCAT('Last Name ', FLOOR(1 + RANDOM() * 1000000)), CONCAT('email ', FLOOR(1 + RANDOM() * 1000000)), CONCAT('password ', FLOOR(1 + RANDOM() * 1000000)), FLOOR(15 + RANDOM() * 30) , CONTACT('city ', FLOOR(1 + RANDOM() * 10000))
 FROM generate_series(1, 1000000) AS id;
 
 

@@ -13,12 +13,10 @@ id in (
   FROM user_comments
   group by user_id
 )
-and age > 28
+and age > 28 
 ;
 
-
- 
---query 2
+-- query 2
 
 SELECT u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id
 FROM users u
@@ -31,7 +29,8 @@ CROSS JOIN likes l
 group by p.id , u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id
 order by p.id , u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id;
 having count(l.id) > 7
-where u.age > 20;
+where u.age > 20 and p.title LIKE '%title12%' and p.body LIKE '%body22%' ;
+
 
 --query 3
 SELECT p.id ,count(*)
@@ -40,7 +39,6 @@ CROSS JOIN user_comments c
 CROSS JOIN likes l
 group by p.id , l.id 
 having count(l.id) > 1;
-
 
 --query 4
 -- We want to write a very complex query
@@ -54,6 +52,7 @@ GROUP BY c.user_id
 order by c.id 
 having count(c.id) > 5
 where u.age > 29;
+
 
 
 

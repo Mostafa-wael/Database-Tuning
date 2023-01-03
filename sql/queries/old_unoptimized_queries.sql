@@ -13,8 +13,7 @@ id in (
   FROM user_comments
   group by user_id
 )
-and age > 28 
-;
+and age > 28 ;
 
 -- query 2
 

@@ -1,5 +1,5 @@
 CREATE DATABASE optimized_db;
-USE optimized_db;
+SELECT 'optimized_db';
 
 CREATE TABLE users (
   id SERIAL NOT NULL,
@@ -21,8 +21,6 @@ CREATE TABLE posts (
   PRIMARY KEY (id)
 );
 
-CREATE INDEX user_id ON posts (user_id)
-
 
 CREATE TABLE comments (
   id SERIAL NOT NULL,
@@ -34,8 +32,8 @@ CREATE TABLE comments (
   PRIMARY KEY (id)
 );
 
-CREATE INDEX user_id ON comments (user_id);
-CREATE INDEX post_id ON comments (post_id);
+-- CREATE INDEX user_id ON comments (user_id);
+-- CREATE INDEX post_id ON comments (post_id);
 
 CREATE TABLE replies (
   id SERIAL NOT NULL,
@@ -47,8 +45,7 @@ CREATE TABLE replies (
   CONSTRAINT replies_ibfk_2 FOREIGN KEY (comment_id) REFERENCES comments (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE INDEX user_id ON replies (user_id);
-CREATE INDEX comment_id ON replies (comment_id);
+-- CREATE INDEX comment_id ON replies (comment_id);
 
 
 
@@ -62,8 +59,6 @@ CREATE TABLE likes (
   CONSTRAINT likes_ibfk_2 FOREIGN KEY (post_id) REFERENCES posts (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE INDEX user_id ON likes (user_id);
-CREATE INDEX post_id ON likes (post_id);
 
 
 

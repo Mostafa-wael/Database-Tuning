@@ -12,20 +12,23 @@ id in (
   SELECT user_id 
   FROM user_comments
   group by user_id
-);
+)
+and age > 28 ;
 
- 
---query 2
+-- query 2
 
 SELECT u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id
 FROM users u
-CROSS JOIN user_posts p
-CROSS JOIN user_comments c
+CROSS JOIN user_posts up
+CROSS JOIN posts p
+CROSS JOIN user_comments uc
+CROSS JOIN comments c
 CROSS JOIN replies r
 CROSS JOIN likes l
 group by p.id , u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id
-order by p.id , u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id
-where count(l.id) > 5
+order by p.id , u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id;
+having count(l.id) > 7
+where p.title LIKE '%title12%' and p.body LIKE '%body22%' and u.age > 20  ;
 
 
 --query 3
@@ -34,10 +37,10 @@ FROM user_posts p
 CROSS JOIN user_comments c
 CROSS JOIN likes l
 group by p.id , l.id 
-having count(l.id) > 1;
-
+having count(l.id) > 2;
 
 --query 4
+-- We want to write a very complex query
 -- We want to find all the followers of a certian user that have more than 5 comments on all the users posts
 SELECT *
 FROM users u 
@@ -47,6 +50,19 @@ CROSS JOIN posts p
 GROUP BY c.user_id
 order by c.id 
 having count(c.id) > 5
+where  c.body '%body22%' LIKE u.age > 29;
+
+-- get trending posts (max likes number) in specific city and age greater than 20
+SELECT p.id , p.title , p.body , count(l.id) as likes
+FROM posts p
+CROSS JOIN likes l
+GROUP BY p.id , l.id
+order by likes desc
+having count(l.id) > 1
+where p.city = 'cairo' and p.age > 20;
+
+
+
 
 
 

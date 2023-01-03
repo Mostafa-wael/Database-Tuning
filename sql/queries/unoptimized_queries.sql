@@ -53,6 +53,17 @@ order by c.id
 having count(c.id) > 5
 where u.age > 29;
 
+-- get trending posts (max likes number) in specific city and age greater than 20
+SELECT p.id , p.title , p.body , count(l.id) as likes
+FROM posts p
+CROSS JOIN likes l
+GROUP BY p.id , l.id
+order by likes desc
+having count(l.id) > 1
+where p.city = 'cairo' and p.age > 20;
+
+
+
 
 
 

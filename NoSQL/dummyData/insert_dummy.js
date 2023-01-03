@@ -21,18 +21,21 @@ var start = new Date().getTime();
 
 console.log("Inserting dummy data into users collection");
 var dummy_size = process.env.DUMMY_SIZE;
+var MOD = dummy_size/100;
 var bulk = db.users.initializeUnorderedBulkOp();
 for (var i = 0; i < dummy_size; i++) {
     bulk.insert({
         id: i,
-        first_name: "Mourad" + i,
-        last_name: "ElAtrosh" + i,
+        first_name: "Mourad" + i % MOD,
+        last_name: "ElAtrosh" + i % MOD,
         email: "user" + i + "@gmail.com",
-        password: "123456"
+        password: "123456",
+        age: Math.floor(Math.random() * 15) + 15,
+        city: "city" + i % MOD,
     });
 }
 bulk.execute();
-// Use bulk insert to insert 1000 documents at once
+
 
 console.log("Inserting dummy data into posts collection");
 var bulk = db.posts.initializeUnorderedBulkOp();
@@ -40,8 +43,8 @@ var bulk = db.posts.initializeUnorderedBulkOp();
 for (var i = 0; i < dummy_size; i++) {
     bulk.insert({
         id: i,
-        title: "Title" + i,
-        body: "Content" + i
+        title: "Title" + i % MOD,
+        body: "Content" + i % MOD
     });
 }
 bulk.execute();
@@ -52,8 +55,8 @@ var bulk = db.user_posts.initializeUnorderedBulkOp();
 for (var i = 0; i < dummy_size; i++) {
     bulk.insert({
         id: i,
-        user_id: i,
-        post_id: i
+        user_id: i % MOD ,
+        post_id: i 
     });
 }
 bulk.execute();
@@ -64,7 +67,7 @@ var bulk = db.comments.initializeUnorderedBulkOp();
 for (var i = 0; i < dummy_size; i++) {
     bulk.insert({
         id: i,
-        body: "Comment" + i
+        body: "Comment" + i % MOD
     });
 }
 bulk.execute();
@@ -75,8 +78,8 @@ var bulk = db.user_comments.initializeUnorderedBulkOp();
 for (var i = 0; i < dummy_size; i++) {
     bulk.insert({
         id: i,
-        user_id: i,
-        post_id: i,
+        user_id: i % MOD ,
+        post_id: i  ,
         comment_id: i
     });
 }
@@ -89,7 +92,7 @@ for (var i = 0; i < dummy_size; i++) {
     bulk.insert({
         id: i,
         user_id: i,
-        comment_id: i,
+        comment_id: i%MOD,
         body: "Reply" + i
     });
 }
@@ -102,7 +105,7 @@ for (var i = 0; i < dummy_size; i++) {
     bulk.insert({
         id: i,
         user_id: i,
-        post_id: i
+        post_id: i % MOD,
     });
 }
 bulk.execute();

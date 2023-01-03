@@ -7,6 +7,11 @@
 6. Don't forget to stop the container after you are done.
 7. Run ``` docker-compose down --volumes``` to delete the volumes.
 
+how to copy and paste file in bash script?
+```bash
+cp /mnt/scripts/queries/query1.js /mnt/scripts/queries/query1.js.bak
+```
+
 ### For NOSQL 
 
 1. Run ``` docker-compose up mongodb ```

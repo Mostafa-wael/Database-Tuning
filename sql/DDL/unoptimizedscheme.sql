@@ -1,4 +1,5 @@
-
+CREATE DATABASE unoptimized_db;
+USE unoptimized_db;
 CREATE TABLE users (
   id SERIAL NOT NULL,
   first_name varchar(255) NOT NULL,

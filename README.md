@@ -293,6 +293,32 @@
 | follows       | 39302     | Yes      | No      | Yes | Yes             | 35                  |
 | messages      | 50k       | Yes      | No      | Yes | Yes             | 46                  |
 
+## Validation Details and Comparisons
+Comparison of the plan and execution times for the queries with different optimization techniques.
+### Query 1
+![Query 1](./results/images/q1_comp.png)
+
+### Query 2
+![Query 2](./results/images/q2_comp.png)
+
+### Query 3
+![Query 3](./results/images/q3_comp.png)
+
+### Query 4
+![Query 4](./results/images/q4_comp.png)
+
+Comparison of the plan and execution times for the queries with different sizes.
+### Query 1
+![Query 1](./results/images/q1_sz.png)
+
+### Query 2
+![Query 2](./results/images/q2_sz.png)
+
+### Query 3
+![Query 3](./results/images/q3_sz.png)
+
+### Query 4
+![Query 4](./results/images/q4_sz.png)
 
 ## System Specifications
 | Name | Version |

@@ -1,22 +1,35 @@
---query 3
-SELECT p.id ,count(*)
-FROM user_posts p
-CROSS JOIN user_comments c
-CROSS JOIN likes l
-group by p.id , l.id 
-having count(l.id) > 1;
+SET SESSION AUTHORIZATION DEFAULT;
+RESET ALL;
+DEALLOCATE ALL;
+CLOSE ALL;
+UNLISTEN *;
+SELECT pg_advisory_unlock_all();
+DISCARD PLANS;
+DISCARD SEQUENCES;
+DISCARD TEMP;
 
 
---query 4
--- We want to find all the followers of a certian user that have more than 5 comments on all the users posts
-SELECT *
-FROM users u 
-CROSS JOIN follows f
-CROSS JOIN comments c
-CROSS JOIN posts p
-GROUP BY c.user_id
-order by c.id 
-having count(c.id) > 5
+-- get the posts with max likes in every city
+-- EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT p.body, u.city, COUNT(l.id) AS likes_count
+-- FROM posts p
+-- JOIN user_posts up ON up.post_id = p.id
+-- JOIN users u ON u.id = up.user_id
+-- JOIN likes l ON l.post_id = p.id
+-- GROUP BY u.city, p.body
+-- ORDER BY likes_count DESC;
+
+-- rewrite the query using the cte on city and post body
+EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT p.body, u.city, COUNT(l.id) AS likes_count
+FROM posts p
+INNER JOIN user_posts up ON up.post_id = p.id
+INNER JOIN users u ON u.id = up.user_id
+INNER JOIN likes l ON l.post_id = p.id
+GROUP BY u.city, p.body
+ORDER BY likes_count DESC;
+
+
+
+
 
 
 

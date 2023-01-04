@@ -296,29 +296,36 @@
 ## Validation Details and Comparisons
 Comparison of the plan and execution times for the queries with different optimization techniques.
 ### Query 1
-![Query 1](./results/images/q1_comp.png)
-
+![Query 1](./results/images/comparisons/q1-execution.PNG)
+![Query 1 planning](./results/images/comparisons/q1-planning.PNG)
 ### Query 2
-![Query 2](./results/images/q2_comp.png)
+![Query 2](./results/images/comparisons/q2-execution.PNG)
+![Query 2 planning](./results/images/comparisons/q2-planning.PNG)
 
 ### Query 3
-![Query 3](./results/images/q3_comp.png)
+![Query 3](./results/images/comparisons/q3-execution.PNG)
+![Query 3 planning](./results/images/comparisons/q3-planning.PNG)
 
 ### Query 4
-![Query 4](./results/images/q4_comp.png)
+![Query 4](./results/images/comparisons/q4-execution.PNG)
+![Query 4 planning](./results/images/comparisons/q4-planning.PNG)
 
 Comparison of the plan and execution times for the queries with different sizes.
 ### Query 1
-![Query 1](./results/images/q1_sz.png)
+![Query 1](./results/images/comparisons/q1-execution(50k%20vs%20100k).PNG)
+![Query 1 planning](./results/images/comparisons/q1-planning(50k%20vs%20100k).PNG)
 
 ### Query 2
-![Query 2](./results/images/q2_sz.png)
+![Query 2](./results/images/comparisons/q2-execution(50k%20vs%20100k).PNG)
+![Query 2 planning](./results/images/comparisons/q2-planning(50k%20vs%20100k).PNG)
 
 ### Query 3
-![Query 3](./results/images/q3_sz.png)
+![Query 3](./results/images/comparisons/q3-execution(50k%20vs%20100k).PNG)
+![Query 3 planning](./results/images/comparisons/q3-planning(50k%20vs%20100k).PNG)
 
 ### Query 4
-![Query 4](./results/images/q4_sz.png)
+![Query 4](./results/images/comparisons/q4-execution(50k%20vs%20100k).PNG)
+![Query 4 planning](./results/images/comparisons/q4-planning(50k%20vs%20100k).PNG)
 
 ## System Specifications
 | Name | Version |

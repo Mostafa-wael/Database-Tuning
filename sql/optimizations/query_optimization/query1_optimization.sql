@@ -1,14 +1,3 @@
-SET SESSION AUTHORIZATION DEFAULT;
-RESET ALL;
-DEALLOCATE ALL;
-CLOSE ALL;
-UNLISTEN *;
-SELECT pg_advisory_unlock_all();
-DISCARD PLANS;
-DISCARD SEQUENCES;
-DISCARD TEMP;
-
-
 
 EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT p.body FROM posts p
 where p.id in (SELECT up.post_id FROM user_posts up JOIN users u ON u.id = up.user_id WHERE u.city = 'Cairo') 

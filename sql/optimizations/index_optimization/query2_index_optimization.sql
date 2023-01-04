@@ -22,7 +22,7 @@ CREATE INDEX IF NOT EXISTS user_posts_user_id_idx ON user_posts (user_id);
 EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT uc.comment_id, up.post_id FROM users u
 INNER JOIN user_posts up ON u.id = up.user_id
 INNER JOIN user_comments uc ON u.id = uc.user_id
-WHERE u.city = 'Giza' and  u.age > 25
+WHERE u.city = 'city 1' and  u.age > 25
 GROUP BY up.post_id , uc.comment_id;
 
 -- remove all the indexes

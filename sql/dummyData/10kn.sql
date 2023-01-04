@@ -6,23 +6,23 @@ FROM generate_series(1, 50000) AS id;
 
 
 INSERT INTO posts(title, body, user_id)
-SELECT CONCAT('Title ', FLOOR(1 + RANDOM() * 100)), CONCAT('Body ', FLOOR(1 + RANDOM() * 100)), FLOOR(1 + RANDOM() * 10000)
-FROM generate_series(1, 50000) AS id;
+SELECT CONCAT('Title ', FLOOR(1 + RANDOM() * 100)), CONCAT('Body ', FLOOR(1 + RANDOM() * 100)), u.id
+FROM users u;
 
 
 INSERT INTO comments(user_id, post_id, body )
-SELECT user_id, post_id,  CONCAT('Body ', FLOOR(1 + RANDOM() * 100))
-FROM user_posts;
+SELECT user_id, id,  CONCAT('Body ', FLOOR(1 + RANDOM() * 100))
+FROM posts;
 
 INSERT INTO replies(user_id, comment_id, body)
-SELECT user_id, comment_id, CONCAT('Body ', FLOOR(1 + RANDOM() * 100))
-FROM user_comments
+SELECT user_id, c.id, CONCAT('Body ', FLOOR(1 + RANDOM() * 100))
+FROM comments c
 on conflict do nothing;
 
 
 INSERT INTO likes(user_id, post_id)
-SELECT user_id, post_id
-FROM user_posts
+SELECT user_id, id
+FROM posts
 on conflict do nothing;
 
 

@@ -6,7 +6,7 @@ services:
     container_name: postgres
     restart: always
     ports:
-      - 5432:5432
+      - 5000:5432
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -29,33 +29,33 @@ services:
       PGADMIN_DEFAULT_PASSWORD: admin
       
 
-#   mongodb:
-#     image: mongo
-#     container_name: mongodb
-#     environment:
-#       - MONGO_INITDB_ROOT_USERNAME=root
-#       - MONGO_INITDB_ROOT_PASSWORD=pass12345
-#       - DUMMY_SIZE=1000
-#       - NODE_OPTIONS=--max_old_space_size=4096
-#     volumes:
-#     - ./NoSQL/DDL/mongo-init.js:/docker-entrypoint-initdb.d/1-mongo-init.js:ro
-#     - ./NoSQL/dummyData/insert_dummy.js:/docker-entrypoint-initdb.d/2-insert_dummy.js
-#     - ./NoSQL/dummyData/insert_dummy.js:/insert_dummy.js
-#     networks:
-#       - mongodb_network
-#     ports:
-#     - 27017:27017
-#     healthcheck:
-#       test: echo 'db.runCommand("ping").ok' | mongo localhost:27017/test --quiet
-#       interval: 30s
-#       timeout: 10s
-#       retries: 3
-#     restart: unless-stopped
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=pass12345
+      - DUMMY_SIZE=1000
+      - NODE_OPTIONS=--max_old_space_size=4096
+    volumes:
+    - ./NoSQL/DDL/mongo-init.js:/docker-entrypoint-initdb.d/1-mongo-init.js:ro
+    - ./NoSQL/dummyData/insert_dummy.js:/insert_dummy.js
+    - ./NoSQL/dummyData/json_data/:/mnt/jsons
+    networks:
+      - mongodb_network
+    ports:
+    - 27017:27017
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo localhost:27017/test --quiet
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
 
 
-# volumes:
-#   mongodb-data:
-#     name: mongodb-data
-# networks:
-#   mongodb_network:
-#     name: mongodb_network
+volumes:
+  mongodb-data:
+    name: mongodb-data
+networks:
+  mongodb_network:
+    name: mongodb_network

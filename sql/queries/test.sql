@@ -6,13 +6,9 @@ CREATE INDEX IF NOT EXISTS users_age_city_idx ON users (city, age);
 EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT p.id , p.body , p.title  
 FROM  users u
 INNER JOIN posts p ON u.id = p.user_id
-INNER JOIN comments c ON u.id = c.user_id
 WHERE  u.City = 'city 1' and u.age > 28  and
 p.title LIKE '%title 1%' and p.body LIKE '%body 2%' 
 GROUP BY p.id, p.body, p.title;
 
 -- remove all the indexes
-DROP INDEX user_posts_post_id_idx;
-DROP INDEX user_posts_user_id_idx;
 DROP INDEX users_age_city_idx;
-DROP INDEX user_comments_comment_id_idx;

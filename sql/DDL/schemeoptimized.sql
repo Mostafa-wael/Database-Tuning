@@ -1,5 +1,3 @@
-CREATE DATABASE optimized_db;
-SELECT 'optimized_db';
 
 CREATE TABLE users (
   id SERIAL NOT NULL,
@@ -7,9 +5,11 @@ CREATE TABLE users (
   last_name varchar(128) NOT NULL,
   email varchar(128) NOT NULL,
   age int NOT NULL,
+  city varchar(255) NOT NULL,
   password varchar(128) NOT NULL,
   PRIMARY KEY (id)
 );
+
 
 
 CREATE TABLE posts (

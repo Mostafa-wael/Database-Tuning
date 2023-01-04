@@ -14,7 +14,7 @@ FROM posts p
 JOIN user_posts up ON up.post_id = p.id
 JOIN users u ON u.id = up.user_id
 JOIN likes l ON l.post_id = p.id
-WHERE u.city = 'Cairo'
+WHERE u.city = 'city 1'
 GROUP BY u.city, p.body
 ORDER BY likes_count DESC;
 

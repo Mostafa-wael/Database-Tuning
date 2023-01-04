@@ -10,14 +10,14 @@
 EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT uc.comment_id, up.post_id FROM users u
 INNER JOIN user_posts up ON u.id = up.user_id
 INNER JOIN user_comments uc ON u.id = uc.user_id
-WHERE u.age > 25 and u.city = 'Giza'
+WHERE u.age > 25 and u.city = 'city 1'
 GROUP BY up.post_id , uc.comment_id;
 
 
 EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT uc.comment_id, up.post_id FROM users u
 INNER JOIN user_posts up ON u.id = up.user_id
 INNER JOIN user_comments uc ON u.id = uc.user_id
-WHERE u.age > 25 and u.city = 'Giza'
+WHERE u.age > 25 and u.city = 'city 1'
 GROUP BY up.post_id , uc.comment_id;
 
 -- query 2 after cache optimization
@@ -26,7 +26,7 @@ ALTER SYSTEM SET shared_buffers='2GB';
 EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT uc.comment_id, up.post_id FROM users u
 INNER JOIN user_posts up ON u.id = up.user_id
 INNER JOIN user_comments uc ON u.id = uc.user_id
-WHERE u.age > 25 and u.city = 'Giza'
+WHERE u.age > 25 and u.city = 'city 1'
 GROUP BY up.post_id , uc.comment_id;
 
 
@@ -34,5 +34,5 @@ GROUP BY up.post_id , uc.comment_id;
 EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT uc.comment_id, up.post_id FROM users u
 INNER JOIN user_posts up ON u.id = up.user_id
 INNER JOIN user_comments uc ON u.id = uc.user_id
-WHERE u.age > 25 and u.city = 'Giza'
+WHERE u.age > 25 and u.city = 'city 1'
 GROUP BY up.post_id , uc.comment_id;

@@ -1,17 +1,7 @@
-USE optimized_db;
-
 -- query 1
--- select all the users with more than 100 posts and more than 100 comments
--- select * from users where id in (select user_id from posts group by user_id having count(*) > 100) and id in (select user_id from comments group by user_id having count(*) > 100); 
-SELECT * 
-FROM users 
-WHERE id in (
-  SELECT user_id 
-  FROM user_posts 
-  group by user_id
-) and
-id in (
-  SELECT user_id 
-  FROM user_comments
-  group by user_id
-);
+SELECT p.body FROM posts p
+JOIN users u ON u.id = p.user_id
+JOIN likes l ON l.post_id = p.id
+WHERE u.city = 'city 1'
+GROUP BY p.id
+HAVING COUNT(l.id) > 20;

@@ -55,12 +55,12 @@ INSERT INTO users(first_name, last_name, email, password,age, city)
 SELECT CONCAT('First Name ', FLOOR(1 + RANDOM() * 1000)), CONCAT('Last Name ', FLOOR(1 + RANDOM() * 1000)), CONCAT('email ', FLOOR(1 + RANDOM() * 1000)), CONCAT('password ', FLOOR(1 + RANDOM() * 1000)), FLOOR(30 + RANDOM() * 30) , CONCAT('city ', FLOOR(1 + RANDOM() * 1000))
 FROM generate_series(1, 100) AS id;
 
--- 1000 users with cairo as city
+-- 1000 users with city 1 as city
 INSERT INTO users(first_name, last_name, email, password,age, city)
-SELECT CONCAT('First Name ', FLOOR(1 + RANDOM() * 1000)), CONCAT('Last Name ', FLOOR(1 + RANDOM() * 1000)), CONCAT('email ', FLOOR(1 + RANDOM() * 1000)), CONCAT('password ', FLOOR(1 + RANDOM() * 1000)), FLOOR(15 + RANDOM() * 30) , 'Cairo'
+SELECT CONCAT('First Name ', FLOOR(1 + RANDOM() * 1000)), CONCAT('Last Name ', FLOOR(1 + RANDOM() * 1000)), CONCAT('email ', FLOOR(1 + RANDOM() * 1000)), CONCAT('password ', FLOOR(1 + RANDOM() * 1000)), FLOOR(15 + RANDOM() * 30) , 'city 1'
 FROM generate_series(1, 1000) AS id;
 
--- 1000 users with Giza as city
+-- 1000 users with city 1 as city
 INSERT INTO users(first_name, last_name, email, password,age, city)
-SELECT CONCAT('First Name ', FLOOR(1 + RANDOM() * 1000)), CONCAT('Last Name ', FLOOR(1 + RANDOM() * 1000)), CONCAT('email ', FLOOR(1 + RANDOM() * 1000)), CONCAT('password ', FLOOR(1 + RANDOM() * 1000)), FLOOR(15 + RANDOM() * 30) , 'Giza'
+SELECT CONCAT('First Name ', FLOOR(1 + RANDOM() * 1000)), CONCAT('Last Name ', FLOOR(1 + RANDOM() * 1000)), CONCAT('email ', FLOOR(1 + RANDOM() * 1000)), CONCAT('password ', FLOOR(1 + RANDOM() * 1000)), FLOOR(15 + RANDOM() * 30) , 'city 1'
 FROM generate_series(1, 1000) AS id;

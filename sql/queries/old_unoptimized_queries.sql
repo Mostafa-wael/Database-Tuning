@@ -59,7 +59,7 @@ CROSS JOIN likes l
 GROUP BY p.id , l.id
 order by likes desc
 having count(l.id) > 1
-where p.city = 'cairo' and p.age > 20;
+where p.city = 'city 1' and p.age > 20;
 
 
 

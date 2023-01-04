@@ -2,14 +2,13 @@ USE optimized_db;
 
 --query 4
 -- We want to find all the followers of a certian user that have more than 5 comments on all the users posts
-SELECT *
-FROM users u 
-CROSS JOIN follows f
-CROSS JOIN comments c
-CROSS JOIN posts p
-GROUP BY c.user_id
-order by c.id 
-having count(c.id) > 5
+EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT p.post_id , p.body , p.title  
+FROM  users u
+INNER JOIN posts p ON u.id = p.user_id
+INNER JOIN comments c ON u.id = c.user_id
+WHERE u.age > 28 and u.City = 'city 1' and
+p.title LIKE '%title 1%' and p.body LIKE '%body 2%' 
+GROUP BY p.post_id, p.body, p.title;
 
 
 

@@ -9,7 +9,8 @@
 -- ORDER BY likes_count DESC;
 
 -- rewrite the query using the cte on city and post body
-EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT p.body, u.city, COUNT(l.id) AS likes_count
+EXPLAIN (ANALYZE TRUE, TIMING TRUE) 
+SELECT p.body, u.city, COUNT(l.id) AS likes_count
 FROM posts p
 INNER JOIN user_posts up ON up.post_id = p.id
 INNER JOIN users u ON u.id = up.user_id

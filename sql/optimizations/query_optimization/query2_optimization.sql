@@ -7,7 +7,8 @@
 
 
 
-EXPLAIN (ANALYZE TRUE, TIMING TRUE) with CTE as (SELECT * FROM users WHERE age > 25 and city = 'city 1')
+EXPLAIN (ANALYZE TRUE, TIMING TRUE) 
+with CTE as (SELECT * FROM users WHERE age > 25 and city = 'city 1')
 SELECT uc.comment_id, up.post_id FROM CTE AS u
 INNER JOIN user_posts up ON u.id = up.user_id
 INNER JOIN user_comments uc ON u.id = uc.user_id

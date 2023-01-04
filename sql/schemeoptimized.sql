@@ -1,5 +1,5 @@
 CREATE DATABASE optimized_db;
-USE optimized_db;
+SELECT 'optimized_db';
 
 CREATE TABLE users (
   id SERIAL NOT NULL,

@@ -6,55 +6,53 @@
 -- try to run this query before the cache optimization
 -- twice and see that no difference in time execution 
 
--- query 4 after cache optimization
-ALTER SESSION SET USE_CACHED_RESULT=FALSE;
-
-SELECT *
-FROM users u 
-CROSS JOIN follows f
-CROSS JOIN comments c
-CROSS JOIN posts p
-GROUP BY c.user_id
-order by c.id 
-having count(c.id) > 5
-where  c.body '%body22%' LIKE u.age > 29;
-
-ALTER SESSION SET USE_CACHED_RESULT=FALSE;
-
-SELECT *
-FROM users u 
-CROSS JOIN follows f
-CROSS JOIN comments c
-CROSS JOIN posts p
-GROUP BY c.user_id
-order by c.id 
-having count(c.id) > 5
-where  c.body '%body22%' LIKE u.age > 29;
-
 -- query 4 before cache optimization
 
-ALTER SESSION SET USE_CACHED_RESULT=TRUE;
-
-SELECT *
-FROM users u 
-CROSS JOIN follows f
-CROSS JOIN comments c
-CROSS JOIN posts p
-GROUP BY c.user_id
-order by c.id 
-having count(c.id) > 5
-where  c.body '%body22%' LIKE u.age > 29;
+SELECT up.post_id , p.body , p.title  
+FROM  users u
+INNER JOIN user_posts up ON u.id = up.user_id
+INNER JOIN user_comments uc ON u.id = uc.user_id
+INNER JOIN posts p ON p.id = up.post_id
+INNER JOIN comments c ON c.id = uc.comment_id
+WHERE u.age > 28 and u.City = 'Giza' and
+p.title LIKE '%title 12%' and p.body LIKE '%body 22%' 
+GROUP BY up.post_id, p.body, p.title;
 
 
-SELECT *
-FROM users u 
-CROSS JOIN follows f
-CROSS JOIN comments c
-CROSS JOIN posts p
-GROUP BY c.user_id
-order by c.id 
-having count(c.id) > 5
-where  c.body '%body22%' LIKE u.age > 29;
+SELECT up.post_id , p.body , p.title  
+FROM  users u
+INNER JOIN user_posts up ON u.id = up.user_id
+INNER JOIN user_comments uc ON u.id = uc.user_id
+INNER JOIN posts p ON p.id = up.post_id
+INNER JOIN comments c ON c.id = uc.comment_id
+WHERE u.age > 28 and u.City = 'Giza' and
+p.title LIKE '%title 12%' and p.body LIKE '%body 22%' 
+GROUP BY up.post_id, p.body, p.title;
+
+-- query 4 after cache optimization
+
+ALTER SYSTEM SET shared_buffers='2GB';
+
+SELECT up.post_id , p.body , p.title  
+FROM  users u
+INNER JOIN user_posts up ON u.id = up.user_id
+INNER JOIN user_comments uc ON u.id = uc.user_id
+INNER JOIN posts p ON p.id = up.post_id
+INNER JOIN comments c ON c.id = uc.comment_id
+WHERE u.age > 28 and u.City = 'Giza' and
+p.title LIKE '%title 12%' and p.body LIKE '%body 22%' 
+GROUP BY up.post_id, p.body, p.title;
+
+
+SELECT up.post_id , p.body , p.title  
+FROM  users u
+INNER JOIN user_posts up ON u.id = up.user_id
+INNER JOIN user_comments uc ON u.id = uc.user_id
+INNER JOIN posts p ON p.id = up.post_id
+INNER JOIN comments c ON c.id = uc.comment_id
+WHERE u.age > 28 and u.City = 'Giza' and
+p.title LIKE '%title 12%' and p.body LIKE '%body 22%' 
+GROUP BY up.post_id, p.body, p.title;
 
 
 

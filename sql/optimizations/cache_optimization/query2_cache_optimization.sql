@@ -5,68 +5,34 @@
 -- try to run this query before the cache optimization
 -- twice and see that no difference in time execution 
 
--- query 2 after cache optimization
-ALTER SESSION SET USE_CACHED_RESULT=FALSE;
-
-
-EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id
-FROM users u
-CROSS JOIN user_posts up
-CROSS JOIN posts p
-CROSS JOIN user_comments uc
-CROSS JOIN comments c
-CROSS JOIN replies r
-CROSS JOIN likes l
-group by p.id , u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id
-order by p.id , u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id;
-having count(l.id) > 7
-where p.title LIKE '%title12%' and p.body LIKE '%body22%' and u.age > 20  ;
-
-
-ALTER SESSION SET USE_CACHED_RESULT=FALSE;
-
-
-EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id
-FROM users u
-CROSS JOIN user_posts up
-CROSS JOIN posts p
-CROSS JOIN user_comments uc
-CROSS JOIN comments c
-CROSS JOIN replies r
-CROSS JOIN likes l
-group by p.id , u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id
-order by p.id , u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id;
-having count(l.id) > 7
-where p.title LIKE '%title12%' and p.body LIKE '%body22%' and u.age > 20  ;
-
 -- query 2 before cache optimization
-ALTER SESSION SET USE_CACHED_RESULT=TRUE;
 
-EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id
-FROM users u
-CROSS JOIN user_posts up
-CROSS JOIN posts p
-CROSS JOIN user_comments uc
-CROSS JOIN comments c
-CROSS JOIN replies r
-CROSS JOIN likes l
-group by p.id , u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id
-order by p.id , u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id;
-having count(l.id) > 7
-where p.title LIKE '%title12%' and p.body LIKE '%body22%' and u.age > 20  ;
+EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT uc.comment_id, up.post_id FROM users u
+INNER JOIN user_posts up ON u.id = up.user_id
+INNER JOIN user_comments uc ON u.id = uc.user_id
+WHERE u.age > 25 and u.city = 'Giza'
+GROUP BY up.post_id , uc.comment_id;
 
 
+EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT uc.comment_id, up.post_id FROM users u
+INNER JOIN user_posts up ON u.id = up.user_id
+INNER JOIN user_comments uc ON u.id = uc.user_id
+WHERE u.age > 25 and u.city = 'Giza'
+GROUP BY up.post_id , uc.comment_id;
 
-EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id
-FROM users u
-CROSS JOIN user_posts up
-CROSS JOIN posts p
-CROSS JOIN user_comments uc
-CROSS JOIN comments c
-CROSS JOIN replies r
-CROSS JOIN likes l
-group by p.id , u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id
-order by p.id , u.first_name , u.last_name , u.email , p.title , p.body , c.body , r.body , l.id;
-having count(l.id) > 7
-where p.title LIKE '%title12%' and p.body LIKE '%body22%' and u.age > 20  ;
+-- query 2 after cache optimization
+ALTER SYSTEM SET shared_buffers='2GB';
 
+EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT uc.comment_id, up.post_id FROM users u
+INNER JOIN user_posts up ON u.id = up.user_id
+INNER JOIN user_comments uc ON u.id = uc.user_id
+WHERE u.age > 25 and u.city = 'Giza'
+GROUP BY up.post_id , uc.comment_id;
+
+
+
+EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT uc.comment_id, up.post_id FROM users u
+INNER JOIN user_posts up ON u.id = up.user_id
+INNER JOIN user_comments uc ON u.id = uc.user_id
+WHERE u.age > 25 and u.city = 'Giza'
+GROUP BY up.post_id , uc.comment_id;

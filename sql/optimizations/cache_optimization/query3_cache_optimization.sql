@@ -6,40 +6,46 @@
 -- twice and see that no difference in time execution 
 
 -- query 3 after cache optimization
-ALTER SESSION SET USE_CACHED_RESULT=FALSE;
 
-EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT p.id ,count(*)
-FROM user_posts p
-CROSS JOIN user_comments c
-CROSS JOIN likes l
-group by p.id , l.id 
-having count(l.id) > 2;
-
-ALTER SESSION SET USE_CACHED_RESULT=FALSE;
-
-EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT p.id ,count(*)
-FROM user_posts p
-CROSS JOIN user_comments c
-CROSS JOIN likes l
-group by p.id , l.id 
-having count(l.id) > 2;
+EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT p.body, u.city, COUNT(l.id) AS likes_count
+FROM posts p
+JOIN user_posts up ON up.post_id = p.id
+JOIN users u ON u.id = up.user_id
+JOIN likes l ON l.post_id = p.id
+GROUP BY u.city, p.body
+ORDER BY likes_count DESC;
 
 
--- query 3 before cache optimization
 
-ALTER SESSION SET USE_CACHED_RESULT=TRUE;
+EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT p.body, u.city, COUNT(l.id) AS likes_count
+FROM posts p
+JOIN user_posts up ON up.post_id = p.id
+JOIN users u ON u.id = up.user_id
+JOIN likes l ON l.post_id = p.id
+GROUP BY u.city, p.body
+ORDER BY likes_count DESC;
 
-EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT p.id ,count(*)
-FROM user_posts p
-CROSS JOIN user_comments c
-CROSS JOIN likes l
-group by p.id , l.id 
-having count(l.id) > 2;
 
-EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT p.id ,count(*)
-FROM user_posts p
-CROSS JOIN user_comments c
-CROSS JOIN likes l
-group by p.id , l.id 
-having count(l.id) > 2;
+
+-- query 3 after cache optimization
+
+ALTER SYSTEM SET shared_buffers='2GB';
+
+EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT p.body, u.city, COUNT(l.id) AS likes_count
+FROM posts p
+JOIN user_posts up ON up.post_id = p.id
+JOIN users u ON u.id = up.user_id
+JOIN likes l ON l.post_id = p.id
+GROUP BY u.city, p.body
+ORDER BY likes_count DESC;
+
+
+EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT p.body, u.city, COUNT(l.id) AS likes_count
+FROM posts p
+JOIN user_posts up ON up.post_id = p.id
+JOIN users u ON u.id = up.user_id
+JOIN likes l ON l.post_id = p.id
+GROUP BY u.city, p.body
+ORDER BY likes_count DESC;
+
 

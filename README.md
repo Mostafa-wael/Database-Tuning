@@ -344,7 +344,10 @@ Comparison of the plan and execution times for the queries with different disks(
 | Name | Version |
 |------|---------|
 | OS   | Ubuntu 22.04 LTS |
-| CPU  | Intel(R) Core(TM) i7-8750H CPU @ 2.20GHz |
+| CPU1  | Intel(R) Core(TM) i7-1087H CPU @ 2.20GHz |
+| CPU2  | AMD Ryzen™ 7 5800  @ 2.20GHz|
+| Disk1  | HDD 1 TB |
+| Disk2  | SSD 1 TB |
 | RAM  | 16 GB |
 ## Developer Guide
 ### How to run?

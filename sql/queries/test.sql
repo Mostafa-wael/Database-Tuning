@@ -1,10 +1,10 @@
-EXPLAIN (ANALYZE TRUE, TIMING TRUE)-- query 1
---query 2
-SELECT c.id, p.id FROM users u
+EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT p.id , p.body , p.title  
+FROM  users u
 INNER JOIN posts p ON u.id = p.user_id
 INNER JOIN comments c ON u.id = c.user_id
-WHERE u.age > 25 and u.city = 'city 1'
-GROUP BY p.id , c.id;
+WHERE u.age > 28 and u.City = 'city 1' and
+p.title LIKE '%title 1%' and p.body LIKE '%body 2%' 
+GROUP BY p.id, p.body, p.title;
 
 
 

@@ -1,3 +1,5 @@
+ALTER SYSTEM SET shared_buffers='2GB';
+
 -- add indexes for user_id and follower_id in follows table if not exists
 CREATE INDEX IF NOT EXISTS follows_user_id_idx ON follows (user_id);
 CREATE INDEX IF NOT EXISTS follows_follower_id_idx ON follows (follower_id);

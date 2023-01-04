@@ -4,7 +4,7 @@
 -- add composite index for users table if not exists
 CREATE INDEX IF NOT EXISTS users_age_city_idx ON users (city, age);
 -- add index for user_id in user_posts table if not exists
-CREATE INDEX IF NOT EXISTS user_posts_user_id_idx ON user_posts (user_id);
+-- CREATE INDEX IF NOT EXISTS user_posts_user_id_idx ON user_posts (user_id);
 
 
 ALTER SYSTEM SET shared_buffers='2GB';

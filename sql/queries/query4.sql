@@ -1,4 +1,7 @@
-EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT up.post_id , p.body , p.title  
+-- query 4
+-- We want to get full details of all the posts that has 1 in the title and 2 in the body from users that are older than 28 and live in city 1
+EXPLAIN (ANALYZE TRUE, TIMING TRUE) 
+SELECT up.post_id , p.body , p.title  
 FROM  users u
 INNER JOIN user_posts up ON u.id = up.user_id
 INNER JOIN user_comments uc ON u.id = uc.user_id

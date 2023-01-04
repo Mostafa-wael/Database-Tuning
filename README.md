@@ -1,8 +1,97 @@
-## How to run?
+# Database Tuning
+
+## Queries
+1. Query 1:
+   1. Description: Find posts of users in city 1 with more than 20 likes.
+   2. Query: 
+    ```SQL
+            SELECT p.body FROM posts p
+            JOIN user_posts up ON up.post_id = p.id
+            JOIN users u ON u.id = up.user_id
+            JOIN likes l ON l.post_id = p.id
+            WHERE u.city = 'city 1'
+            GROUP BY p.id
+            HAVING COUNT(l.id) > 20;
+    ```
+   3.  Explain: 
+       1. The query will first join the `posts` table with `user_posts` table on `post_id` column.
+       2. Then it will join the result with `users` table on `user_id` column.
+       3. Then it will join the result with `likes` table on `post_id` column.
+       4. Then it will filter the result by `city` column.
+       5. Then it will group the result by `id` column.
+       6. Then it will filter the result by `COUNT(l.id) > 20`.
+    4. Query Tree:
+        1. ![Query Tree](./results/images/q1.svg)
+2. Query 2:
+   1. Description: Find all the comments and posts of a user that is older than 25 and lives in city 1
+   2. Query: 
+    ```SQL
+            SELECT uc.comment_id, up.post_id FROM users u
+            INNER JOIN user_posts up ON u.id = up.user_id
+            INNER JOIN user_comments uc ON u.id = uc.user_id
+            WHERE u.age > 25 and u.city = 'city 1'
+            GROUP BY up.post_id , uc.comment_id;
+    ```
+    3. Explain: 
+       1. The query will first join the `users` table with `user_posts` table on `id` column.
+       2. Then it will join the result with `user_comments` table on `user_id` column.
+       3. Then it will filter the result by `age > 25` and `city = 'city 1'`.
+       4. Then it will group the result by `post_id` and `comment_id`.
+    4. Query Tree:
+        1. ![Query Tree](./results/images/q2.svg)
+3. Query 3:
+   1. Description: Find the posts with most likes in city 1.
+   2. Query:
+   ```SQL
+            SELECT p.body, u.city, COUNT(l.id) AS likes_count
+            FROM posts p
+            JOIN user_posts up ON up.post_id = p.id
+            JOIN users u ON u.id = up.user_id
+            JOIN likes l ON l.post_id = p.id
+            WHERE u.city = 'city 1'
+            GROUP BY u.city, p.body
+            ORDER BY likes_count DESC;
+   ``` 
+   3. Explain: 
+       1. The query will first join the `posts` table with `user_posts` table on `post_id` column.
+       2. Then it will join the result with `users` table on `user_id` column.
+       3. Then it will join the result with `likes` table on `post_id` column.
+       4. Then it will filter the result by `city = 'city 1'`.
+       5. Then it will group the result by `city` and `body`.
+       6. Then it will order the result by `likes_count` in descending order.
+    4. Query Tree:
+        1. ![Query Tree](./results/images/q3.svg)
+4. Query 4:
+   1. Description: Get the full details of all the posts that has 1 in the title and 2 in the body from users that are older than 28 and live in city 1
+   2. Query:
+   ```SQL
+            SELECT up.post_id , p.body , p.title  
+            FROM  users u
+            INNER JOIN user_posts up ON u.id = up.user_id
+            INNER JOIN user_comments uc ON u.id = uc.user_id
+            INNER JOIN posts p ON p.id = up.post_id
+            INNER JOIN comments c ON c.id = uc.comment_id
+            WHERE u.age > 28 and u.City = 'city 1' and
+            p.title LIKE '%title 1%' and p.body LIKE '%body 2%' 
+            GROUP BY up.post_id, p.body, p.title;
+   ```
+   3. Explain: 
+       1. The query will first join the `users` table with `user_posts` table on `id` column.
+       2. Then it will join the result with `user_comments` table on `user_id` column.
+       3. Then it will join the result with `posts` table on `post_id` column.
+       4. Then it will join the result with `comments` table on `comment_id` column.
+       5. Then it will filter the result by `age > 28` and `city = 'city 1'` and `title LIKE '%title 1%'` and `body LIKE '%body 2%'`.
+       6. Then it will group the result by `post_id`, `body`, `title`.
+    4. Query Tree:
+        1. ![Query Tree](./results/images/q4.svg)
+
+
+## Developer Guide
+### How to run?
 1. Run ``` docker-compose up ```.
 2. You will see a message whether the creation was `Okay` or `Not Okay`.
 3. Exec into the container.
-4. Populate the data by running with the required size ``` ./mnt/scripts/populate_data.sh  1k```.
+4. Populate the data by running with the required size ``` ./mnt/scripts/populate_data.sh  10k```.
 5. Run the query using ```  ./mnt/scripts/run_queries.sh query1```.
 6. Don't forget to stop the container after you are done.
 7. Run ``` docker-compose down --volumes``` to delete the volumes.
@@ -11,8 +100,7 @@ how to copy and paste file in bash script?
 ```bash
 cp /mnt/scripts/queries/query1.js /mnt/scripts/queries/query1.js.bak
 ```
-
-### For NOSQL 
+#### For NOSQL 
 
 1. Run ``` docker-compose up mongodb ```
 2. Container will create collections upon startup also it will insert dummy data into them
@@ -32,18 +120,15 @@ cp /mnt/scripts/queries/query1.js /mnt/scripts/queries/query1.js.bak
     - Authenticate yourself using step 4 commands
     - load the script again using ``` load("./insert_dummy.js") ```
 
-
-## How can you contribute?
+### How can you contribute?
 1. Create queries in the `queries` folder.
 2. Add the queries to the `run_queries.sh` file.
 
-## How to add data?
+### How to add data?
 1. Add a new script in the `dummyData` folder.
 2. Add the new size of the data in the `populate_data.sh` file.
 
-
 >> You can find the schema of the database in the `DDL` folder.
-
 
 ### Helpful mongo commands
 1. Note that mongo command should be installed on the computer. On Linux this should be install `mongodb-org-shell` [package](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/).

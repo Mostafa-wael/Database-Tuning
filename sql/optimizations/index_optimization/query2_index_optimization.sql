@@ -10,12 +10,7 @@
 CREATE INDEX IF NOT EXISTS users_age_city_idx ON users (city, age);
 -- add index for user_id in user_posts table if not exists
 CREATE INDEX IF NOT EXISTS user_posts_user_id_idx ON user_posts (user_id);
--- add index for user_id in user_comments table if not exists
--- CREATE INDEX IF NOT EXISTS user_comments_user_id_idx ON user_comments (user_id);
--- create index for comment_id in user_comments table if not exists
--- CREATE INDEX IF NOT EXISTS user_comments_comment_id_idx ON user_comments (comment_id);
--- create index for post_id in user_posts table if not exists
--- CREATE INDEX IF NOT EXISTS user_posts_post_id_idx ON user_posts (post_id);
+
 
 
 -- we changed the order of the condiotions in the where clause to make indexing more efficient

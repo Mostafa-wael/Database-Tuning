@@ -5,8 +5,7 @@
 -- CREATE INDEX IF NOT EXISTS user_posts_user_id_idx ON user_posts (user_id);
 -- add composite index for users table if not exists
 CREATE INDEX IF NOT EXISTS users_age_city_idx ON users (city, age);
--- add index for comment_id in user_comments table if not exists
--- CREATE INDEX IF NOT EXISTS user_comments_comment_id_idx ON user_comments (comment_id);
+
 
 -- we changed the order of the condiotions in the where clause to make indexing more efficient
 -- indexing won't be efficient due to the use of LIKE operator

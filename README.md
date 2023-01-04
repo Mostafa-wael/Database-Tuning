@@ -89,7 +89,7 @@
 ![Postgres Schema](./Docs/ERD.png)
 
 ## Postgres Server Enhanced Schema
-![Postgres Schema](./Docs/ERD.png)
+![Postgres Schema](./Docs/ERD_opt.png)
 
 ## Optimizations
 ### Subquery Optimizations
@@ -172,8 +172,114 @@
        6. Then it will select the `post_id` column.
     4. Query Tree:
         ![Query Tree](./results/images/q4_opt.png)
+### Indexes
+1. Query 1:
+   1. Description: Find posts of users in city 1 with more than 20 likes.
+   2. Query: 
+    ```SQL
+            -- add index for post_id in user_posts table if not exists
+            CREATE INDEX IF NOT EXISTS user_posts_post_id_idx ON user_posts (post_id);
+            -- add index for post_id in likes table if not exists
+            CREATE INDEX IF NOT EXISTS likes_post_id_idx ON likes (post_id);
+            -- add index for city in users table if not exists
+            CREATE INDEX IF NOT EXISTS users_city_idx ON users (city);
+            -- add index for user_id in user_posts table if not exists
+            CREATE INDEX IF NOT EXISTS user_posts_user_id_idx ON user_posts (user_id);
 
+            -- use explain analyze to see the difference in execution time
+            SELECT p.body FROM posts p
+            JOIN user_posts up ON up.post_id = p.id
+            JOIN users u ON u.id = up.user_id
+            JOIN likes l ON l.post_id = p.id
+            WHERE u.city = 'city 1'
+            GROUP BY p.id
+            HAVING COUNT(l.id) > 20;
+    ```
+   3.  Explain: 
+       1. We have added indexes for `post_id` in `user_posts` table, `post_id` in `likes` table, `city` in `users` table, and `user_id` in `user_posts` table.
+       2. We have added those indexes to make the query more computationally efficient.
+       3. For instance, we have added an index for `city` in `users` table to make the filtering by `city = 'city 1'` more efficient.
+       4. We have added an index for `post_id` in `user_posts` table to make the join between `posts` table and `user_posts` table more efficient.
+       5. We have added an index for `post_id` in `likes` table to make the join between `posts` table and `likes` table more efficient.
+       6. We have added an index for `user_id` in `user_posts` table to make the join between `users` table and `user_posts` table more efficient.
+    4. Query Tree:
+        ![Query Tree](./results/images/q1.png)
+2. Query 2:
+   1. Description: Find all the comments and posts of a user that is older than 25 and lives in city 1
+   2. Query: 
+    ```SQL
+            -- add composite index for users table if not exists
+            CREATE INDEX IF NOT EXISTS users_age_city_idx ON users (city, age);
+            -- add index for user_id in user_posts table if not exists
+            CREATE INDEX IF NOT EXISTS user_posts_user_id_idx ON user_posts (user_id);
 
+            -- we changed the order of the conditions in the where clause to make indexing more efficient
+            SELECT uc.comment_id, up.post_id FROM users u
+            INNER JOIN user_posts up ON u.id = up.user_id
+            INNER JOIN user_comments uc ON u.id = uc.user_id
+            WHERE u.city = 'city 1' and  u.age > 25
+            GROUP BY up.post_id , uc.comment_id;
+    ```
+    3. Explain: 
+       1. We have added a composite index for `city` and `age` in `users` table, and an index for `user_id` in `user_posts` table.
+       2. We have added those indexes to make the query more computationally efficient.
+       3. We have added a composite index for `city` and `age` in `users` table to make the filtering by `city = 'city 1'` and `age > 25` more efficient.
+       4. We changed the order of the conditions in the `where` clause to make indexing more efficient.
+       5. We have added an index for `user_id` in `user_posts` table to make the join between `users` table and `user_posts` table more efficient.
+    4. Query Tree:
+        ![Query Tree](./results/images/q2.png)
+3. Query 3:
+   1. Description: Find the posts with most likes in city 1.
+   2. Query:
+   ```SQL
+            -- add index for city in users table if not exists
+            CREATE INDEX IF NOT EXISTS users_city_idx ON users (city);
+            -- add index for user_id in user_posts table if not exists
+            CREATE INDEX IF NOT EXISTS user_posts_user_id_idx ON user_posts (user_id);
+
+            -- get the posts with max likes in every city
+            SELECT p.body, u.city, COUNT(l.id) AS likes_count
+            FROM posts p
+            JOIN user_posts up ON up.post_id = p.id
+            JOIN users u ON u.id = up.user_id
+            JOIN likes l ON l.post_id = p.id
+            WHERE u.city = 'city 1'
+            GROUP BY u.city, p.body
+            ORDER BY likes_count DESC;
+   ``` 
+   3. Explain: 
+       1. We have added an index for `city` in `users` table, and an index for `user_id` in `user_posts` table.
+       2. We have added those indexes to make the query more computationally efficient.
+       3. We have added an index for `city` in `users` table to make the filtering by `city = 'city 1'` more efficient.
+       4. We have added an index for `user_id` in `user_posts` table to make the join between `users` table and `user_posts` table more efficient.
+    4. Query Tree:
+        ![Query Tree](./results/images/q3.png)
+4. Query 4:
+   1. Description: Get the full details of all the posts that has 1 in the title and 2 in the body from users that are older than 28 and live in city 1
+   2. Query:
+   ```SQL
+            -- add composite index for users table if not exists
+            CREATE INDEX IF NOT EXISTS users_age_city_idx ON users (city, age);
+
+            -- we changed the order of the conditions in the where clause to make indexing more efficient
+            -- indexing won't be efficient due to the use of LIKE operator
+            SELECT up.post_id , p.body , p.title  
+            FROM  users u
+            INNER JOIN user_posts up ON u.id = up.user_id
+            INNER JOIN user_comments uc ON u.id = uc.user_id
+            INNER JOIN posts p ON p.id = up.post_id
+            INNER JOIN comments c ON c.id = uc.comment_id
+            WHERE u.City = 'city 1' and  u.age > 28  and
+            p.title LIKE '%title 12%' and p.body LIKE '%body 22%' 
+            GROUP BY up.post_id, p.body, p.title;
+   ```
+   3. Explain: 
+       1. We have added a composite index for `city` and `age` in `users` table.
+       2. We have added those indexes to make the query more computationally efficient.
+       3. We have added a composite index for `city` and `age` in `users` table to make the filtering by `city = 'city 1'` and `age > 28` more efficient.
+       4. We changed the order of the conditions in the `where` clause to make indexing more efficient.
+    4. Query Tree:
+        ![Query Tree](./results/images/q4.png)
 ## Postgres Server Statistics Report
 | Table Name    | Row Count | Main Key | Indexes | FK  | Identity Column | Max Row Size(Bytes) |
 |---------------|-----------|----------|---------|-----|-----------------|---------------------|

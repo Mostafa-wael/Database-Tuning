@@ -2,10 +2,7 @@
 CREATE INDEX IF NOT EXISTS users_city_idx ON users (city);
 -- add index for user_id in user_posts table if not exists
 CREATE INDEX IF NOT EXISTS user_posts_user_id_idx ON user_posts (user_id);
--- -- add index for post_id in user_posts table if not exists
--- CREATE INDEX IF NOT EXISTS user_posts_post_id_idx ON user_posts (post_id);
--- -- add index for post_id in likes table if not exists
--- CREATE INDEX IF NOT EXISTS likes_post_id_idx ON likes (post_id);
+
 
 
 -- get the posts with max likes in every city

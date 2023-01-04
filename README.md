@@ -327,6 +327,19 @@ Comparison of the plan and execution times for the queries with different sizes.
 ![Query 4](./results/images/comparisons/q4-execution(50k%20vs%20100k).PNG)
 ![Query 4 planning](./results/images/comparisons/q4-planning(50k%20vs%20100k).PNG)
 
+Comparison of the plan and execution times for the queries with different disks(HDD VS. SSD).
+### Query 1
+![Query 1](./results/images/comparisons/q1-execution(HDD%20vs%20SSD).PNG)
+![Query 1 planning](./results/images/comparisons/q1-planning(HDD%20vs%20SSD).PNG)
+### Query 2
+![Query 2](./results/images/comparisons/q2-execution(HDD%20vs%20SSD).PNG)
+![Query 2 planning](./results/images/comparisons/q2-planning(HDD%20vs%20SSD).PNG)
+### Query 3
+![Query 3](./results/images/comparisons/q3-execution(HDD%20vs%20SSD).PNG)
+![Query 3 planning](./results/images/comparisons/q3-planning(HDD%20vs%20SSD).PNG)
+### Query 4
+![Query 4](./results/images/comparisons/q4-execution(HDD%20vs%20SSD).PNG)
+![Query 4 planning](./results/images/comparisons/q4-planning(HDD%20vs%20SSD).PNG)
 ## System Specifications
 | Name | Version |
 |------|---------|

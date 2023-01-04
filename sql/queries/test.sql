@@ -1,14 +1,7 @@
-
--- add composite index for users table if not exists
-CREATE INDEX IF NOT EXISTS users_age_city_idx ON users (city, age);
--- we changed the order of the condiotions in the where clause to make indexing more efficient
--- indexing won't be efficient due to the use of LIKE operator
-EXPLAIN (ANALYZE TRUE, TIMING TRUE) SELECT p.id , p.body , p.title  
-FROM  users u
-INNER JOIN posts p ON u.id = p.user_id
-WHERE  u.City = 'city 1' and u.age > 28  and
-p.title LIKE '%title 1%' and p.body LIKE '%body 2%' 
-GROUP BY p.id, p.body, p.title;
-
--- remove all the indexes
-DROP INDEX users_age_city_idx;
+EXPLAIN (ANALYZE TRUE, TIMING TRUE)
+with CTE as (SELECT * FROM users WHERE age > 25 and city = 'city 1')
+SELECT  up.post_id FROM CTE AS u
+INNER JOIN user_posts up ON u.id = up.user_id
+inner join posts p on p.id = up.post_id
+where p.title LIKE '%title 1%' and p.body LIKE '%body 2%'
+GROUP BY up.post_id;

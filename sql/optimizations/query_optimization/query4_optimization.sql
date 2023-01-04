@@ -6,7 +6,6 @@ INNER JOIN user_posts up ON u.id = up.user_id
 inner join posts p on p.id = up.post_id
 where p.title LIKE '%title 1%' and p.body LIKE '%body 2%'
 GROUP BY up.post_id;
--- TDOD: Check again
 
 
 
